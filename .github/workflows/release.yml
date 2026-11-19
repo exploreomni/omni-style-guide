@@ -15,8 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      # Vale expects the zip to contain a top-level folder with the same name as the zip
       - name: Build package
-        run: zip -r omni.zip .vale.ini styles/omni
+        run: |
+          mkdir -p build/omni
+          cp -R styles build/omni/
+          cd build && zip -r ../omni.zip omni
 
       - name: Upload asset to release
         run: gh release upload "${{ github.event.release.tag_name }}" omni.zip --clobber
