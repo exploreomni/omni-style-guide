@@ -1,8 +1,9 @@
 # Example of the configuration file for Docs: https://github.com/exploreomni/mintlify-omni
 
 # Top level styles
-StylesPath = base
+StylesPath = omni
 MinAlertLevel = suggestion
+Packages = https://github.com/exploreomni/vale-style-guide/releases/latest/download/omni.zip 
 
 # Vocabularies
 Vocab = omni
