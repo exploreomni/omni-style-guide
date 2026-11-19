@@ -1,0 +1,24 @@
+---
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  upload-asset:
+    name: Upload omni.zip
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build package
+        run: zip -r omni.zip .vale.ini styles/omni
+
+      - name: Upload asset to release
+        run: gh release upload "${{ github.event.release.tag_name }}" omni.zip --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
