@@ -1,0 +1,21 @@
+extends: existence
+message: "'%s' compares the product to how it was before. Product docs describe only the current state. Put changes in the changelog."
+level: suggestion
+ignorecase: true
+tokens:
+  - matching current behavior
+  - as it always has
+
+tests:
+  - name: flags as it always has
+    input: The filter works as it always has.
+    want: |
+      1:18:omni.ai.past-comparisons:'as it always has' compares the product to how it was before. Product docs describe only the current state. Put changes in the changelog.
+  - name: flags matching current behavior
+    input: Sorting stays the same, matching current behavior.
+    want: |
+      1:25:omni.ai.past-comparisons:'matching current behavior' compares the product to how it was before. Product docs describe only the current state. Put changes in the changelog.
+  - name: ignores no longer
+    about: We removed 'no longer' because most uses in the docs describe the result of a user action.
+    input: After you convert the user, they no longer have access.
+    want: ''

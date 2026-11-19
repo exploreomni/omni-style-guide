@@ -1,0 +1,11 @@
+extends: substitution
+message: "Use '%s' instead of '%s'"
+ignorecase: false
+level: warning
+swap:
+  "[Cc]onnection admin": Connection Admin
+  "[Oo]rganization admin": Organization Admin
+  "[Rr]estricted querier": Restricted Querier
+  querier: Querier
+  viewer: Viewer
+  manager: Manager

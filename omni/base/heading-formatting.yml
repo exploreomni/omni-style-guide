@@ -1,0 +1,8 @@
+## This rule finds Markdown formatting and ampersands in headings
+## Headings shouldn't contain inline formatting like `code`, *italics*, **bold**, or ampersands (&)
+
+extends: script
+message: "Remove Markdown formatting or ampersands from heading: '%s'"
+level: warning
+scope: raw
+script: MarkdownFormatting.tengo

@@ -1,0 +1,19 @@
+extends: substitution
+message: "Use '%s' instead of '%s'"
+ignorecase: false
+level: warning
+swap:
+# could-be-better:good
+
+# Navigation
+  "[Mm]y Documents": My documents
+  "[Ss]hared With Me": Shared with me
+
+# Workbooks
+  "All views & fields": "All Views & Fields"
+  field picker: field browser
+
+# Admin pages
+  AI Settings: &ai-settings AI settings
+  ai settings: *ai-settings
+  "[Aa][Ii] [Hh]ub": "AI Hub"

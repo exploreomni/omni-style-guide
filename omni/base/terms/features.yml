@@ -1,0 +1,35 @@
+extends: substitution
+message: "Use '%s' instead of '%s'"
+ignorecase: false
+level: warning
+swap:
+
+# AI
+  AI assistant: Omni Agent
+  Omni agent: Omni Agent
+  MCP server: MCP Server
+  "[Dd]ashboard assistant": Omni Agent
+
+# Querying & workbooks
+  "[Bb]ranch mode": Branch Mode
+  filter only field: "filter-only field"
+  "[Qq]uery helper": Query Helper
+
+# Modeling
+
+# Modeling concepts are common nouns, not product names. Keep them lowercase.
+# Product names and UI labels stay capitalized in styles/terms/omni-features.yml.
+  Shared Model: shared model
+  Workbook Model: workbook model
+  Query Model: query model
+  Semantic Model: semantic model
+  Model Demotion: model demotion
+
+# Integrations
+
+## Warehouses
+## "Data Warehouse" itself is not swapped: it appears inside vendor
+## product names such as Snowflake Data Warehouse and Azure SQL Data Warehouse,
+## and RE2 has no lookbehind to exclude them.
+  "[Dd]atawarehouse": data warehouse
+  "[Dd]ata-warehouse": data warehouse

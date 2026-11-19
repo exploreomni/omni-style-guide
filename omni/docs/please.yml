@@ -1,0 +1,6 @@
+extends: existence
+message: "Remove '%s' - it's not necessary to plead"
+ignorecase: true
+level: warning
+tokens:
+  - please

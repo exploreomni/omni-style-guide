@@ -1,0 +1,12 @@
+[Oo]mni
+Omni's
+dbt
+Databricks
+drillable
+[Ss]parkline
+
+Branch Mode
+Query Helper
+AI Assistant
+Dashboard Assistant
+MCP Server

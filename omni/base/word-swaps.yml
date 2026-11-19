@@ -1,0 +1,41 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: warning
+ignorecase: false
+action:
+  name: replace
+swap:
+  # could-be-better: good
+  all of: all
+  a number of: few|several|many
+  as a means of: to
+  check box: checkbox
+  Create a new: Create a|Create an
+  drop-down: dropdown
+  e-mail: email
+  e-mailing: emailing
+  e-mails: emails
+  file name: filename
+  for the most part: generally|usually
+  hit (?:the )?(?:button|link|key|enter|Enter|return|Return|submit|Submit|save|Save|cancel|Cancel|escape|Escape): click|press|select
+  holistic: complete|comprehensive|integrated
+  HTTPs: HTTPS
+  in order to: to
+  in sync: in-sync
+  let's assume: assuming|for example, if
+  Note that: "**Note**:"
+  (?:obvious|obviously|Obviously): ''
+  open-source: open source
+  please: ''
+  regex: regular expression
+  sign into: sign in to
+  stand for: represent|mean
+  streamline: simplify|improve|optimize
+  reenable: re-enable
+  under the hood: ''
+  url: URL
+  utilize: use
+  via: with|through
+  
+  # Proper nouns
+  (?:sql|Sql): SQL

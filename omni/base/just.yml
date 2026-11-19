@@ -1,0 +1,6 @@
+extends: existence
+message: "Remove 'just' - it dismisses difficulty and adds no value"
+ignorecase: true
+level: warning
+tokens:
+  - just

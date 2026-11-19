@@ -1,0 +1,54 @@
+text := import("text")
+
+matches := []
+
+// Split content into lines, tracking absolute position
+lines := text.split(scope, "\n")
+pos := 0
+
+for line in lines {
+    // Check if line is a heading (2-6 hashes followed by space and content)
+    if text.re_match("^#{2,6}\\s+.+$", line) {
+        has_formatting := false
+
+        // Search for formatting characters in this heading
+        for i := 0; i < len(line); i++ {
+            c := line[i]
+
+            // Match backticks, asterisks, or ampersands
+            if c == '`' || c == '*' || c == '&' {
+                has_formatting = true
+            }
+
+            // Match underscores at word boundaries (not inside words like ai_context)
+            if c == '_' {
+                prev_word := false
+                next_word := false
+                if i > 0 {
+                    prev_word = text.re_match("\\w", line[i-1:i])
+                }
+                if i < len(line) - 1 {
+                    next_word = text.re_match("\\w", line[i+1:i+2])
+                }
+                // Only match if NOT surrounded by word chars on both sides
+                if !prev_word || !next_word {
+                    has_formatting = true
+                }
+            }
+        }
+
+        // If formatting found, report the entire heading (after the ## prefix)
+        if has_formatting {
+            // Find where the heading text starts (after ## and space)
+            start := 0
+            for i := 0; i < len(line); i++ {
+                if line[i] == ' ' {
+                    start = i + 1
+                    break
+                }
+            }
+            matches = append(matches, {"begin": pos + start, "end": pos + len(line)})
+        }
+    }
+    pos = pos + len(line) + 1  // +1 for the newline character
+}

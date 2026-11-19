@@ -1,0 +1,25 @@
+extends: existence
+message: "Possible 'It's not X. It's Y.' contrast across sentences: '%s'"
+level: suggestion
+scope: paragraph
+ignorecase: true
+nonword: true
+tokens:
+  - '\b(?:it''s\s+not|it\s+is\s+not|it\s+isn''t|this\s+is\s+not|this\s+isn''t|that''s\s+not|that\s+isn''t|they''re\s+not|they\s+aren''t)\s+(?:about\s+)?[^.]{1,60}\.\s+(?:it''s|it\s+is|this\s+is|that''s|they''re)\s+(?:about\s+)?'
+
+tests:
+  - name: flags the pattern across two sentences
+    about: The negation and the pivot are in different sentences.
+    input: It's not about speed. It's about trust.
+    want: |
+      1:1:omni.ai.not-x-its-y:Possible 'It's not X. It's Y.' contrast across sentences: 'It's not about speed. It's about '
+  - name: flags the pattern on a later line
+    input: |
+      # Overview
+
+      This isn't a report. It's a workspace.
+    want: |
+      3:1:omni.ai.not-x-its-y:Possible 'It's not X. It's Y.' contrast across sentences: 'This isn't a report. It's '
+  - name: ignores two sentences without a negation
+    input: This is the setting you need. It is in the Admin panel.
+    want: ''

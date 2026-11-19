@@ -1,0 +1,27 @@
+extends: existence
+message: "'%s' sounds academic. Use a negative verb or 'without', for example 'doesn't have', 'isn't a', or 'without'."
+level: suggestion
+ignorecase: true
+tokens:
+  - '(?:has|have|had|is|are|was|were|with)\s+no\s+(?!longer\b)\w+'
+
+tests:
+  - name: flags has no
+    input: The chart has no title.
+    want: |
+      1:11:omni.ai.has-no-x:'has no title' sounds academic. Use a negative verb or 'without', for example 'doesn't have', 'isn't a', or 'without'.
+  - name: flags is no
+    input: There is no limit on rows.
+    want: |
+      1:7:omni.ai.has-no-x:'is no limit' sounds academic. Use a negative verb or 'without', for example 'doesn't have', 'isn't a', or 'without'.
+  - name: flags with no
+    input: It runs in a sandbox with no internet access.
+    want: |
+      1:22:omni.ai.has-no-x:'with no internet' sounds academic. Use a negative verb or 'without', for example 'doesn't have', 'isn't a', or 'without'.
+  - name: ignores no longer
+    about: "'no longer' is a different pattern, and most uses in the docs are correct."
+    input: The user is no longer an admin.
+    want: ''
+  - name: ignores doesn't have
+    input: The chart doesn't have a title.
+    want: ''

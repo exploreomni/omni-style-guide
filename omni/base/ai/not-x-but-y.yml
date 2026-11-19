@@ -1,0 +1,26 @@
+extends: existence
+message: "Possible 'not X, but Y' contrast: '%s'"
+level: suggestion
+scope: sentence
+ignorecase: true
+nonword: true
+tokens:
+  - '\b(?:it''s\s+not|it\s+is\s+not|it\s+isn''t|this\s+is\s+not|this\s+isn''t|that''s\s+not|that\s+isn''t|they''re\s+not|they\s+aren''t|aren''t|isn''t|wasn''t|weren''t)\s+(?:just\s+|only\s+|merely\s+|simply\s+)?[^,;:.—]{1,60}[,;:—–]\s*(?:it''s|it\s+is|they''re|they\s+are|this\s+is|but|instead)\b'
+  - '\bnot\s+(?:just|only|merely|simply)\b[^.]{1,80}?\bbut(?:\s+also)?\b'
+
+tests:
+  - name: flags a contrast after a comma
+    input: It's not a dashboard, it's a workspace.
+    want: |
+      1:1:omni.ai.not-x-but-y:Possible 'not X, but Y' contrast: 'It's not a dashboard, it's'
+  - name: flags a contrast after an em dash
+    input: This isn't just a feature — it's a new way to work.
+    want: |
+      1:1:omni.ai.not-x-but-y:Possible 'not X, but Y' contrast: 'This isn't just a feature — it's'
+  - name: flags not only X but also Y
+    input: Omni is not only fast but also accurate.
+    want: |
+      1:9:omni.ai.not-x-but-y:Possible 'not X, but Y' contrast: 'not only fast but also'
+  - name: ignores a sentence with but and no negation
+    input: It's a good idea to save often, but it is optional.
+    want: ''

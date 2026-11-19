@@ -1,0 +1,15 @@
+extends: existence
+message: "Avoid first-person pronouns such as '%s'."
+link: 'https://developers.google.com/style/pronouns#personal-pronouns'
+ignorecase: true
+level: warning
+nonword: true
+tokens:
+  - (?:^|\s)I\s
+  - (?:^|\s)I,\s
+  - \bI'm\b
+  # Exclude "Shared with me"
+  - (?<!with )\bme\b
+  # Exclude "My documents", "My activity"
+  - \bmy\b(?! (?:documents|activity))
+  - \bmine\b

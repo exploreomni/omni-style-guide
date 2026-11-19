@@ -1,0 +1,5 @@
+extends: existence
+message: "Avoid '→'. Use '>' for menu paths (e.g., `Settings > AI`) or rewrite as prose for flow (e.g., `staging-to-production`, `from dbt to Omni`)."
+level: warning
+tokens:
+  - →

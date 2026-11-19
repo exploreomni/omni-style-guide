@@ -1,0 +1,38 @@
+# Example of the configuration file for Docs: https://github.com/exploreomni/mintlify-omni
+
+# Top level styles
+StylesPath = base
+MinAlertLevel = suggestion
+
+# Vocabularies
+Vocab = omni
+
+# Treat MDX as Markdown to avoid JSX parsing issues
+[formats]
+mdx = md
+
+# Match all MDX files
+[*.mdx]
+BasedOnStyles = omni, terms
+Vale.Terms = NO # Enforces really harsh capitalization rules, keep off
+
+# These will be noisy for PR reviews - good for local dev
+omni.sentence-length = NO
+omni.tense = NO
+
+# Ignore JSX/MDX-specific syntax patterns
+# `import ...`, `export ...`
+# `<Component ... />`
+# `<Component>...</Component>`
+# `{ ... }`
+TokenIgnores = (?sm)((?:import|export) .+?$), \
+(?<!`)(<\w+ ?.+ ?\/>)(?!`), \
+(<[A-Z]\w+>.+?<\/[A-Z]\w+>)
+
+# Exclude multiline JSX and curly braces
+# `<Component \n ... />`
+# Guide page JSX wrapper (imports through content div)
+# Guide page closing divs
+BlockIgnores = (?sm)^(<\w+\n .*\s\/>)$, \
+(?s)import\s.+?guide-content, \
+(?s)</div>\s*</div>\s*</div>\s*</div>\s*$

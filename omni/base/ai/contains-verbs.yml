@@ -1,0 +1,23 @@
+extends: existence
+message: "If '%s' means 'contains' or 'includes', use one of those words. Keep it if it means something else, for example 'keeps its position'."
+level: suggestion
+ignorecase: true
+tokens:
+  - carries
+  - holds
+  - keeps
+
+tests:
+  - name: flags holds
+    input: The field holds the user ID.
+    want: |
+      1:11:omni.ai.contains-verbs:If 'holds' means 'contains' or 'includes', use one of those words. Keep it if it means something else, for example 'keeps its position'.
+  - name: flags a capitalized word
+    about: The rule uses ignorecase.
+    input: Keeps the filter values for each user.
+    want: |
+      1:1:omni.ai.contains-verbs:If 'Keeps' means 'contains' or 'includes', use one of those words. Keep it if it means something else, for example 'keeps its position'.
+  - name: ignores the base form in UI instructions
+    about: The rule checks only the -s forms, so instructions like "Hold Shift" are not flagged.
+    input: Hold Shift and click the tile.
+    want: ''

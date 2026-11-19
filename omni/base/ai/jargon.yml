@@ -1,0 +1,48 @@
+# Each swap value is the advice for that word, not a replacement.
+# Don't add `action: replace`, or an editor quick fix will insert the advice into the text.
+extends: substitution
+message: "'%[2]s' is jargon. %[1]s"
+level: suggestion
+ignorecase: true
+swap:
+  gates: "Use 'controls'."
+  gated: "Use 'controlled'."
+  gating: "Use 'controlling'."
+  rides: "If it means 'is included with', use that."
+  riding: "If it means 'included with', use that."
+  rode: "If it means 'was included with', use that."
+  # Internal Omni terms
+  feature[- ]flags?: "It's an internal Omni term. If customers need the feature turned on, write 'Reach out to Omni support to have this feature enabled.'"
+
+tests:
+  - name: flags gates
+    input: This setting gates access to the feature.
+    want: |
+      1:14:omni.ai.jargon:'gates' is jargon. Use 'controls'.
+  - name: flags gated after a hyphen
+    input: The tool is admin-gated.
+    want: |
+      1:19:omni.ai.jargon:'gated' is jargon. Use 'controlled'.
+  - name: flags rides
+    input: The filter rides along with the dashboard.
+    want: |
+      1:12:omni.ai.jargon:'rides' is jargon. If it means 'is included with', use that.
+  - name: keeps the capital letter of the match
+    input: Gating applies to all users.
+    want: |
+      1:1:omni.ai.jargon:'Gating' is jargon. Use 'controlling'.
+  - name: flags feature flag
+    input: This chart type is behind a feature flag.
+    want: |
+      1:29:omni.ai.jargon:'feature flag' is jargon. It's an internal Omni term. If customers need the feature turned on, write 'Reach out to Omni support to have this feature enabled.'
+  - name: flags the plural with a hyphen
+    input: Feature-flags control this.
+    want: |
+      1:1:omni.ai.jargon:'Feature-flags' is jargon. It's an internal Omni term. If customers need the feature turned on, write 'Reach out to Omni support to have this feature enabled.'
+  - name: ignores CLI flags
+    input: View help, including arguments and flag details.
+    want: ''
+  - name: ignores the noun gate
+    about: Only the verb forms are flagged. The noun 'gate' has correct uses, for example 'a review gate'.
+    input: Branch mode provides a review gate.
+    want: ''
