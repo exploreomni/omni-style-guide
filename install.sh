@@ -58,7 +58,7 @@ Vocab = Omni
 mdx = md
 
 [*.{md,mdx,txt}]
-BasedOnStyles = omni
+BasedOnStyles = omni, ai-tells
 EOF
 
 echo "Downloading the Omni style guide..."

@@ -20,6 +20,7 @@ jobs:
         run: |
           mkdir -p build/omni
           cp -R styles build/omni/
+          cp package.vale.ini build/omni/.vale.ini
           cd build && zip -r ../omni.zip omni
 
       - name: Upload asset to release
